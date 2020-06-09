@@ -59,7 +59,7 @@ class LinkPreviewState extends State<LinkPreview> {
   }
 
   _handleSubmit() async {
-    String url = 'http://localhost:5000/fireship-lessons/us-central1/scraper';
+    String url = 'http://localhost:5000/k1data/us-central1/scraper';
 
 
     var response = await http.post(url, body: {'text': _controller.text});

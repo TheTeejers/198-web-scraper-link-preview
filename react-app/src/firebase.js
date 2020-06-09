@@ -5,13 +5,14 @@ import 'firebase/storage';
 import 'firebase/functions';
 
 const config = {
-    apiKey: 'AIzaSyCNGXNpOeRLQcJnuSgUXLv8sWcPhvJfyVA',
-    authDomain: 'fireship-lessons.firebaseapp.com',
-    databaseURL: 'https://fireship-lessons.firebaseio.com',
-    projectId: 'fireship-lessons',
-    storageBucket: 'fireship-lessons.appspot.com',
-    messagingSenderId: '758773997881',
-    appId: '1:758773997881:web:8991643725992873'
+  apiKey: "AIzaSyDhmZwiWLGeJ84Am6E0IAEUUw9nX-_WTpk",
+  authDomain: "k1data.firebaseapp.com",
+  databaseURL: "https://k1data.firebaseio.com",
+  projectId: "k1data",
+  storageBucket: "k1data.appspot.com",
+  messagingSenderId: "993629183798",
+  appId: "1:993629183798:web:cc9215a5d402624b98dd97",
+  measurementId: "G-Q8S3XSF932"
 }
 
 firebase.initializeApp(config);

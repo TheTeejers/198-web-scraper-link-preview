@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
 
-const variableName = 'variableValue';
 
 function App() {
 
@@ -19,7 +18,7 @@ function App() {
 function LinkPreview() {
 
   const [text, setText] = useState('');
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [links, setLinks] = useState([]);
   const [password, setPassword] = useState('');
   const [racerName, setRacerName] = useState('');
@@ -106,7 +105,7 @@ function PreviewCard({ linkData }) {
           <td>{linkData.date}</td>
           <td>{linkData.time}</td>
           <td>{linkData.raceNumber}</td>
-          <td><a href={linkData.heatLink} target="_blank">{linkData.heatType}</a></td>
+          <td><a href={linkData.heatLink} target="_blank" rel="noopener noreferrer">{linkData.heatType}</a></td>
           <td>{linkData.kartNumber}</td>
           <td>{linkData.position}</td>
           <td>{linkData.bestTime}</td>

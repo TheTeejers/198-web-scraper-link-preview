@@ -20,7 +20,7 @@ export class HomePage {
     this.loading = true;
 
     this.http.post(
-      'http://localhost:5000/fireship-lessons/us-central1/scraper',
+      'http://localhost:5000/k1data/us-central1/scraper',
       JSON.stringify({ text: this.text })
     )
     .subscribe(res => {
