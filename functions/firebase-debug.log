@@ -29255,3 +29255,27 @@ SyntaxError: missing ) after argument list
 [debug] [2020-06-09T19:01:52.001Z] [worker-scraper-13f0b0d9-1959-4f7d-9cbb-e01350b83e04]: exited
 [debug] [2020-06-09T19:01:52.002Z] [worker-scraper-13f0b0d9-1959-4f7d-9cbb-e01350b83e04]: FINISHED
 [debug] [2020-06-09T19:01:52.002Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-06-09T19:11:37.265Z] File /Users/terranceloughry/Documents/TheTeejers/198-web-scraper-link-preview/functions/index.js changed, reloading triggers
+[debug] [2020-06-09T19:11:38.268Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-06-09T19:11:38.268Z] [worker-~diagnostic~-5a54d85c-5458-4a8c-9273-a08eccf233d5]: FINISHING
+[debug] [2020-06-09T19:11:38.268Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-06-09T19:11:38.268Z] [worker-pool] Cleaned up workers for scraper: 1 --> 0
+[debug] [2020-06-09T19:11:38.274Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-06-09T19:11:38.274Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-06-09T19:11:38.274Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-06-09T19:11:38.275Z] [worker-~diagnostic~-5b5bf75e-bce5-427f-9ac9-b3b978e22e17]: Assigning socketPath: /var/folders/rl/r2nr83r55jlgbqs3yhtlbl380000gr/T/fire_emu_75441.sock
+[debug] [2020-06-09T19:11:38.275Z] [worker-~diagnostic~-5b5bf75e-bce5-427f-9ac9-b3b978e22e17]: BUSY
+[debug] [2020-06-09T19:11:38.276Z] [worker-~diagnostic~-5a54d85c-5458-4a8c-9273-a08eccf233d5]: exited
+[debug] [2020-06-09T19:11:38.276Z] [worker-~diagnostic~-5a54d85c-5458-4a8c-9273-a08eccf233d5]: FINISHED
+[info] >  internal/modules/cjs/loader.js:582
+[info] >      throw err;
+[info] >      ^
+[info] >  
+[info] >  Error: Cannot find module '/Users/terranceloughry/Documents/TheTeejers/198-web-scraper-link-preview/functions/node_modules/firebase-tools/lib/emulator/functionsEmulatorRuntime'
+[info] >      at Function.Module._resolveFilename (internal/modules/cjs/loader.js:580:15)
+[info] >      at Function.Module._load (internal/modules/cjs/loader.js:506:25)
+[info] >      at Function.Module.runMain (internal/modules/cjs/loader.js:741:12)
+[info] >      at startup (internal/bootstrap/node.js:285:19)
+[info] >      at bootstrapNodeJSCore (internal/bootstrap/node.js:739:3)
+[debug] [2020-06-09T19:11:38.350Z] [worker-~diagnostic~-5b5bf75e-bce5-427f-9ac9-b3b978e22e17]: exited
+[debug] [2020-06-09T19:11:38.350Z] [worker-~diagnostic~-5b5bf75e-bce5-427f-9ac9-b3b978e22e17]: FINISHED
