@@ -48,9 +48,9 @@ const scrapeMetatags = (text) => {
 const puppeteer = require('puppeteer');
 
 
-const scrapeImages = async (creds) => {
-    const browser = await puppeteer.launch( { headless: true});
-    // const browser = await puppeteer.launch( { headless: true, mode: 'no-cors' });
+const scrapeData = async (creds) => {
+    // const browser = await puppeteer.launch( { headless: true});
+    const browser = await puppeteer.launch( { headless: true, mode: 'no-cors' });
     const page = await browser.newPage();
     // console.log("this one " + text);
 
@@ -58,7 +58,7 @@ const scrapeImages = async (creds) => {
     await page.waitFor(5000);
 
     // await page.goto('https://www.instagram.com/accounts/login/');
-    const response = await page.goto('https://k1austin.clubspeedtiming.com/sp_center/signin.aspx');
+    const response = await page.goto('https://' + creds.location + '.clubspeedtiming.com/sp_center/signin.aspx');
 
 
 
@@ -171,7 +171,10 @@ const scrapeImages = async (creds) => {
 
       const [el2] = await page.$x('//*[@id="dg"]/tbody/tr['+i+']/td[3]');
       const txt2 = await el2.getProperty('textContent');
-      const k1rs = await txt2.jsonValue();
+      const k1rsLong = await txt2.jsonValue();
+      const k1rsSplit = k1rsLong.split(" ")
+      const k1rsTotal = k1rsSplit[0]
+      const k1rsEarned = k1rsSplit[1].toString().replace(/[()]/g,'')
 
       const [el3] = await page.$x('//*[@id="dg"]/tbody/tr['+i+']/td[4]');
       const txt3 = await el3.getProperty('textContent');
@@ -186,7 +189,7 @@ const scrapeImages = async (creds) => {
 
 
       // arrayName.push(heatType1, dateTime, k1rs, bestTime, position)
-      var raceData = {raceNumber, heatLink, heatType, kartNumber, date, time, k1rs, bestTime, position, nameData}
+      var raceData = {raceNumber, heatTypeAndKart, heatLink, heatType, kartNumber, date, time, k1rsTotal, k1rsEarned, bestTime, position, nameData}
       // console.log(arrayName);
       // console.log(typeof raceData);
       // console.log(raceData);
@@ -223,7 +226,7 @@ exports.scraper = functions.https.onRequest((request, response) => {
         // const body = JSON.parse(request.body);
         // const data1 = await scrapeMetatags(body.password);
 
-        const data = await scrapeImages(body.creds);
+        const data = await scrapeData(body.creds);
 
         response.send(data)
 

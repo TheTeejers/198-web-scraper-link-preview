@@ -1,48 +1,8 @@
 import React, { useState, Component } from 'react';
 import './App.css';
-// import RacerData from './components/RacerData.js';
-// import Routes from './components/Routes.js';
-// import Footer from './components/Footer.js';
-// // import Search from './components/Search.js';
-// // import UserSearch1 from './components/UserSearch1.js';
-// // import Home from './components/Home.js';
-// // import RacerData from './components/RacerData.js';
-// // import UsersFound from './components/UsersFound.js';
-// // import { BrowserRouter as Router, Route } from 'react-router-dom';
-// import { Link } from 'react-router-dom'
 
-// hello
-// this.handleYearSelect = this.handleYearSelect.bind(this);
 
-// class RacerData extends Component {
-//   constructor(props){
-//     super(props);
-//     this.state = {
-//       racerFullData: '',
-//       racerHeatsData: '',
-//       racerDataName: '',
-//       racerCurrentPoints: '',
-//       yearSelected: '',
-//       kartSelected: '',
-//       raceTypeSelected: '',
-//       raceTrackSelected: ''
-//     }
-//   }
-// }
-
-function App() {
-
-  return (
-    <div className="App">
-      <RaceInformation />
-
-    </div>
-  );
-}
-// var kartNumberList = []
-
-// module.exports = variableName
-
+class RacerData extends Component {
 
 
 function RaceInformation() {
@@ -51,13 +11,11 @@ function RaceInformation() {
   const [loading, setLoading] = useState(false);
   const [links, setLinks] = useState([]);
   const [password, setPassword] = useState('');
-  const [location, setLocation] = useState('');
   const [racerName, setRacerName] = useState('');
   const [fastestLapTime, setFastestLapTime] = useState([]);
-  const [fastestSetLap, setFastestSetLap] = useState(['0']);
-  const [fastestKart, setFastestKart] = useState('0');
-  const [fastestDate, setFastestDate] = useState('0/0/0');
-  const [totalRaces, setTotalRaces] = useState();
+  const [fastestKart, setFastestKart] = useState('');
+  const [fastestDate, setFastestDate] = useState('');
+  // const [toatlRaces, setTotalRaces] = useState();
 
 
 
@@ -66,9 +24,9 @@ function RaceInformation() {
   // // let racerName = this.state.racerDataName
   // // let currentPoints = this.state.racerCurrentPoints
   // //TODO put in location to show on screen
-  // let totalRaces
+  let totalRaces
   // let fastestLapTime0 = [100000000]
-  // // let fastestSetLap = [100000000]
+  // // let fastestLapTime1 = [100000000]
   // let fastestLapDate0 = []
   // // let fastestLapDate1 = []
   // let fastestLapKart0 = []
@@ -103,7 +61,6 @@ function RaceInformation() {
   var creds = {}
   creds.text = text
   creds.password = password
-  creds.location = location
 
   var handleSubmit = async(evt) => {
     // let totalRaces
@@ -128,8 +85,7 @@ function RaceInformation() {
     evt.preventDefault();
     console.log(`Submitting ${text}`);
 
-    // const res = await fetch('http://localhost:5000/k1data/us-central1/scraper', {
-    const res = await fetch('https://us-central1-k1data.cloudfunctions.net/scraper', {
+    const res = await fetch('http://localhost:5000/k1data/us-central1/scraper', {
         method: 'POST',
         body: JSON.stringify({creds}),
         // username: JSON.stringify({racerName})
@@ -147,20 +103,22 @@ function RaceInformation() {
     setLinks(data);
     setLoading(false)
 
-
     //set data in to variables
     if (typeof data !== 'undefined') {
-      var getBestTimes = []
-
-
+      sessionStorage.setItem('key', data[2].bestTime);
+      console.log(sessionStorage.getItem('key'));
+      console.log(data);
+      sessionStorage.removeItem('key');
+      console.log(sessionStorage.getItem('key'));
       console.log("data length " + data.length);
       const dataLength = data.length;
-
+      totalRaces = dataLength
+      console.log(totalRaces);
       console.log(typeof totalRaces);
       for (var i = 0; i < dataLength; i++){
         const dataFull = data[i]
-        getBestTimes.push(data[i].bestTime)
 
+        // console.log(sessionStorage.getItem('key'));
         // sessionStorage.removeItem('key');
         // console.log(sessionStorage.getItem('key'));
 
@@ -181,7 +139,7 @@ function RaceInformation() {
 
 
 
-        // setFastestLapTime(fastestLapTime.push(data[i].bestTime))
+        setFastestLapTime(fastestLapTime.push(data[i].bestTime))
         kartSelection.push(dataFull.kartNumber)
         // console.log(dataFull);
         let yearOnly = dataFull.date.toString().split("/")[2]
@@ -234,31 +192,21 @@ function RaceInformation() {
 
 
       }
-      setFastestSetLap(Math.min(...getBestTimes))
-      sessionStorage.setItem('times', Math.min(...getBestTimes));
-      // console.log("In Storage: " + JSON.parse(sessionStorage.getItem('times')));
-      console.log(getBestTimes);
-      var storedArray = sessionStorage.getItem("times");//no brackets
-      // var storedArray = JSON.parse(sessionStorage.getItem("times"));//no brackets
-      console.log("stored date  " + storedArray);
-
-
       console.log(kartSelection);
-      console.log({fastestSetLap});
-      console.log(Math.min(...getBestTimes));
-      // console.log(Math.min(...fastestLapTime))
+      console.log(fastestLapTime);
+      console.log(Math.min(...fastestLapTime))
       for (var p = 0; p < data.length; p++){
-        if (Math.min(...getBestTimes).toString() === data[p].bestTime){
+        if (Math.min(...fastestLapTime).toString() === data[p].bestTime){
           setFastestKart(data[p].kartNumber)
           setFastestDate(data[p].date)
-          // console.log(Math.min(...fastestSetLap).toString(), data[p].bestTime);
+          console.log(Math.min(...fastestLapTime).toString(), data[p].bestTime);
 
         } else {
-          // console.log(fastestSetLap, data[p].bestTime);
+          // console.log(Math.min(...fastestLapTime).toString(), data[p].bestTime);
         }
         // setFastestLapTime(fastestLapTime.push(data[p].bestTime))
       }
-      // setFastestLapTime(Math.min(...fastestLapTime))
+      setFastestLapTime(Math.min(...fastestLapTime))
       // console.log({heatData});
       console.log(fastestKart);
 
@@ -282,68 +230,25 @@ function RaceInformation() {
           placeholder="Racer ID"
           type="text"
           value={text}
-          onChange={e => setText(e.target.value)}
-          required>
+          onChange={e => setText(e.target.value)}>
 
         </input>
         <input rows="1" cols="50"
           placeholder="Password"
           type="password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
-          required>
+          onChange={e => setPassword(e.target.value)}>
 
         </input>
-        <label><br/>
-
-        <select onChange={e => setLocation(e.target.value)} required>
-              <option value=''>Select Location</option>
-
-              <option value="k1addison">Addison</option>
-              <option value="k1anaheim">Anaheim</option>
-              <option value="k1arlington">Arlington</option>
-              <option value="k1atlanta">Atlanta</option>
-              <option value="k1austin">Austin</option>
-              <option value="k1boston">Boston</option>
-              <option value="k1buffalogrove">Buffalo Grove</option>
-              <option value="k1austin">Carlsbad</option>
-              <option value="k1concord">Concord</option>
-              <option value="k1dallas">Dallas</option>
-              <option value="k1denver">Denver</option>
-              <option value="k1dublin">Dublin</option>
-              <option value="k1ftlauderdale">Fort Lauderdale</option>
-              <option value="k1houston">Houston</option>
-              <option value="k1indianapolis">Indianapolis</option>
-              <option value="k1irvine">Irvine</option>
-              <option value="k1kapolei">Kapolei</option>
-              <option value="k1kingston">Kingston</option>
-              <option value="k1miami">Miami</option>
-              <option value="k1ontario">Ontario</option>
-              <option value="k1orlando">Orlando</option>
-              <option value="k1phx">Phoenix</option>
-              <option value="k1poughkeepsie">Poughkeepsie</option>
-              <option value="k1sacramento">Sacramento</option>
-              <option value="k1saltlakecity">Salt Lake City</option>
-              <option value="k1sanantonio">San Antonio</option>
-              <option value="k1sandiego">San Diego</option>
-              <option value="k1sanfrancisco">San Francisco</option>
-              <option value="k1santaclara">Santa Clara</option>
-              <option value="k1redmond">Seattle</option>
-              <option value="k1torrance">Torrance</option>
-
-            </select>
-          </label>
         <br />
         <input type="submit" value="Submit" />
         </form>
 
-
         <h2>Racer  {racerName}</h2>
-        <h3>Fastest Time: {fastestSetLap}</h3>
+        <h3>Fastest Time: {fastestLapTime}</h3>
         <h3>Fastest Kart: {fastestKart}</h3>
         <h3>on {fastestDate}</h3>
         <h3>on {totalRaces}</h3>
-
 
         {loading &&  <h3>Fetching racer data...</h3> }
 
@@ -402,6 +307,5 @@ function ReturnedRacerData({ linkData }) {
 
   )
 }
-
-
-export default App;
+}
+export default RacerData;
